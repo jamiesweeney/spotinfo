@@ -9,8 +9,14 @@ import urllib.parse
 #-- Global vars --#
 app = Flask(__name__)
 
+<<<<<<< HEAD
 CLIENT_ID = "f73f551e914f4915a7c38d75fa074cfb"
 CLIENT_SECRET = "de1227a6f8144ed1a0094f3eb8878e34"
+=======
+#  Client Keys
+CLIENT_ID = ""
+CLIENT_SECRET = ""
+>>>>>>> 45fa8ffaa3d220d5c448c27e2c3cf7e4b9c42e35
 
 SPOTIFY_AUTH_URL = "https://accounts.spotify.com/authorize"
 SPOTIFY_TOKEN_URL = "https://accounts.spotify.com/api/token"

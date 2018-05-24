@@ -1,0 +1,30 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Spotinfo - login</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="login.css">
+    <script src="utils.js"></script>
+  </head>
+
+  <body>
+    <div class="container">
+      <div id="login">
+        <h1>Click below to authorise spotinfo</h1>
+        <button id="login-button" class="btn btn-primary">Log in with Spotify</button>
+      </div>
+    </div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+
+
+    <script id="page-logic">
+      if (checkAuthentication()) {
+        window.location = REDIRECT_URI;
+      }else{
+        document.getElementById("login-button").addEventListener('click', function() {authenticateWithSpotify();});
+      }
+    </script>
+  </body>
+</html>

@@ -18,15 +18,20 @@
  } ) ;
 
 
- app.get( '/', function( req, res ) {
-     return res.render( 'index.html' ) ;
- } ) ;
- app.get( '/login', function( req, res ) {
-     return res.render( 'login.html' ) ;
- } ) ;
- app.get( '/home', function( req, res ) {
-     return res.render( 'home.html' ) ;
- } ) ;
+app.get( '/', function( req, res ) {
+   return res.render( 'index.html' ) ;
+} ) ;
+app.get( '/login', function( req, res ) {
+   return res.render( 'login.html' ) ;
+} ) ;
+app.get( '/home', function( req, res ) {
+   return res.render( 'home.html' ) ;
+} ) ;
+app.get( '/playlists', function( req, res ) {
+   return res.render( 'playlists.html' ) ;
+} ) ;
+
+
 
 
 app.use(express.static(__dirname + '/public'));

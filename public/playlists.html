@@ -1,155 +1,39 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Spotinfo - home</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-    <script src="utils.js"></script>
-  </head>
+{% extends 'base.html' %}
 
-  <body>
-    <div class="container">
+{% block head_scripts %}
+{% endblock %}
 
-      <h1>Spotinfo playlists</h1>
+{% block page_content %}
+  <div class="container">
+
+    <h1>Spotinfo playlists</h1>
 
 
-      <div id="user-playlists">
-        <table id="user-playlists-table">
-          <tr>
-            <th>Image</th>
-            <th onclick="sortTable(1, 'user-playlists-table', 'text')">Name</th>
-            <th onclick="sortTable(2, 'user-playlists-table', 'num')">No. of songs</th>
-            <th onclick="sortTable(3, 'user-playlists-table', 'num')">No. of followers</th>
-          </tr>
-        </table>
-      </div>
-
-      <div id="nuser-playlists">
-        <table id="nuser-playlists-table">
-          <tr>
-            <th>Image</th>
-            <th onclick="sortTable(1, 'nuser-playlists-table', 'text')">Name</th>
-            <th onclick="sortTable(2, 'nuser-playlists-table', 'text')">Owner</th>
-            <th onclick="sortTable(3, 'nuser-playlists-table', 'num')">No. of songs</th>
-            <th onclick="sortTable(4, 'nuser-playlists-table', 'num')">No. of followers</th>
-          </tr>
-        </table>
-      </div>
+    <div id="user-playlists">
+      <table id="user-playlists-table">
+        <tr>
+          <th>Image</th>
+          <th onclick="sortTable(1, 'user-playlists-table', 'text')">Name</th>
+          <th onclick="sortTable(2, 'user-playlists-table', 'num')">No. of songs</th>
+          <th onclick="sortTable(3, 'user-playlists-table', 'num')">No. of followers</th>
+        </tr>
+      </table>
     </div>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
-    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <div id="nuser-playlists">
+      <table id="nuser-playlists-table">
+        <tr>
+          <th>Image</th>
+          <th onclick="sortTable(1, 'nuser-playlists-table', 'text')">Name</th>
+          <th onclick="sortTable(2, 'nuser-playlists-table', 'text')">Owner</th>
+          <th onclick="sortTable(3, 'nuser-playlists-table', 'num')">No. of songs</th>
+          <th onclick="sortTable(4, 'nuser-playlists-table', 'num')">No. of followers</th>
+        </tr>
+      </table>
+    </div>
+  </div>
+{% endblock %}
 
-
-    <script id="user-playlist-template" type="text/x-handlebars-template">
-      <tr>
-        <td><img class="media-object" width="50" src="{{images.0.url}}" /></td>
-        <td>{{name}}</td>
-        <td>{{tracks.total}}</td>
-        <td>{{followers.total}}</td>
-      </tr>
-    </script>
-
-    <script id="nuser-playlist-template" type="text/x-handlebars-template">
-      <tr>
-        <td><img class="media-object" width="50" src="{{images.0.url}}" /></td>
-        <td>{{name}}</td>
-        <td>{{owner.id}}</td>
-        <td>{{tracks.total}}</td>
-        <td>{{followers.total}}</td>
-      </tr>
-    </script>
-
-
-    <script id="page-logic">
-
-      var params = getHashParams();
-      var access_token = params.access_token
-      var user_id;
-
-      var userPlaylistSource = document.getElementById('user-playlist-template').innerHTML,
-          userPlaylistTemplate = Handlebars.compile(userPlaylistSource),
-          userPlaylistPlaceholder = document.getElementById('user-playlists-table');
-
-      var nuserPlaylistSource = document.getElementById('nuser-playlist-template').innerHTML,
-          nuserPlaylistTemplate = Handlebars.compile(nuserPlaylistSource),
-          nuserPlaylistPlaceholder = document.getElementById('nuser-playlists-table');
-
-
-      function getPlaylists(url){
-        $.ajax({
-            url: url,
-            headers: {
-              'Authorization': 'Bearer ' + access_token
-            },
-            success: function(response) {
-              if (response.next != null){
-                getPlaylists(response.next);
-              }
-
-              for (var item in response.items){
-                data = response.items[item]
-                insertPlaylist(data)
-              }
-            },
-            error: function(response){
-              if (response.status == 429){
-                setTimeout ( function(){ getPlaylists( url ) }, 5000 );
-              }
-
-            }
-        });
-      }
-
-
-      function insertPlaylist(data){
-        $.ajax({
-            url: data.href,
-            headers: {
-              'Authorization': 'Bearer ' + access_token
-            },
-            success: function(response) {
-              console.log("in")
-              var node = document.createElement("tr");
-              if (response.owner.id == user_id){
-                node.innerHTML =  userPlaylistTemplate(response)
-                userPlaylistPlaceholder.appendChild(node);
-              }else{
-                node.innerHTML =  nuserPlaylistTemplate(response)
-                nuserPlaylistPlaceholder.appendChild(node);
-              }
-            },
-            error: function(response){
-              if (response.status == 429){
-                setTimeout ( function(){ insertPlaylist( data ) }, 5000 );
-              }
-            }
-        });
-      }
-
-      function startup(){
-        $.ajax({
-            url: 'https://api.spotify.com/v1/me',
-            headers: {
-              'Authorization': 'Bearer ' + access_token
-            },
-            success: function(response){
-              user_id  = response.id
-              getPlaylists('https://api.spotify.com/v1/me/playlists?limit=50&offset=0')
-            },
-            error: function(response){
-              if (response.status == 429){
-                setTimeout ( function(){ startup() }, 5000 );
-              }
-            }
-        });
-      }
-
-      if (!checkAuthentication()) {
-        window.location = LOGIN_URI;
-      }else{
-        startup()
-      }
-    </script>
-  </body>
-</html>
+{% block body_scripts %}
+  <script src="playlists.js"></script>
+{% endblock %}

@@ -22,6 +22,15 @@ function getHashParams() {
 }
 
 
+function paramsToURI(dict) {
+  var str = [];
+  for(var p in dict){
+     str.push(encodeURIComponent(p) + "=" + encodeURIComponent(dict[p]));
+  }
+  return str.join("&");
+}
+
+
 /**
  * Generates a random string containing numbers and letters
  * @param  {number} length The length of the string

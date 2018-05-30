@@ -151,6 +151,16 @@ function sortTable(n, id, t) {
   switching = true;
   //Set the sorting direction to ascending:
   dir = "asc";
+
+  headers =  table.getElementsByTagName("TH");
+  console.log(headers)
+  console.log(headers[0].childNodes)
+  for (i = 1; i < (headers.length - 1); i++) {
+    headers[i].childNodes[1].innerHTML="<i class='fas fa-sort'></i>";
+  }
+  headers[n].childNodes[1].innerHTML="<i class='fas fa-sort-up'></i>";
+
+
   /*Make a loop that will continue until
   no switching has been done:*/
   while (switching) {
@@ -210,6 +220,7 @@ function sortTable(n, id, t) {
       if (switchcount == 0 && dir == "asc") {
         dir = "desc";
         switching = true;
+        headers[n].childNodes[1].innerHTML="<i class='fas fa-sort-down'></i>";
       }
     }
   }

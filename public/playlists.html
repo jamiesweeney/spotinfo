@@ -6,28 +6,27 @@
 {% block page_content %}
   <div class="container">
 
-    <h1>Spotinfo playlists</h1>
-
-
+    <h2>Your playlists</h2>
     <div id="user-playlists">
       <table id="user-playlists-table">
         <tr>
           <th>Image</th>
-          <th onclick="sortTable(1, 'user-playlists-table', 'text')">Name</th>
-          <th onclick="sortTable(2, 'user-playlists-table', 'num')">No. of songs</th>
-          <th onclick="sortTable(3, 'user-playlists-table', 'num')">No. of followers</th>
+          <th onclick="sortTable(1, 'user-playlists-table', 'text')">Name<i class="fas fa-sort"></i></th>
+          <th onclick="sortTable(2, 'user-playlists-table', 'num')">No. of songs<i class="fas fa-sort"></i></th>
+          <th onclick="sortTable(3, 'user-playlists-table', 'num')">No. of followers<i class="fas fa-sort"></i></th>
         </tr>
       </table>
     </div>
 
+    <h2>Followed playlists</h2>
     <div id="nuser-playlists">
       <table id="nuser-playlists-table">
         <tr>
           <th>Image</th>
-          <th onclick="sortTable(1, 'nuser-playlists-table', 'text')">Name</th>
-          <th onclick="sortTable(2, 'nuser-playlists-table', 'text')">Owner</th>
-          <th onclick="sortTable(3, 'nuser-playlists-table', 'num')">No. of songs</th>
-          <th onclick="sortTable(4, 'nuser-playlists-table', 'num')">No. of followers</th>
+          <th onclick="sortTable(1, 'nuser-playlists-table', 'text')">Name<i class="fas fa-sort"></i></th>
+          <th onclick="sortTable(2, 'nuser-playlists-table', 'text')">Owner<i class="fas fa-sort"></i></th>
+          <th onclick="sortTable(3, 'nuser-playlists-table', 'num')">No. of songs<i class="fas fa-sort"></i></th>
+          <th onclick="sortTable(4, 'nuser-playlists-table', 'num')">No. of followers<i class="fas fa-sort"></i></th>
         </tr>
       </table>
     </div>

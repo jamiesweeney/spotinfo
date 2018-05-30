@@ -25,7 +25,7 @@ var userProfileSource =
 `;
 
 
-var userProfileTemplate = Handlebars.compile(userProfileSource),
+var userProfileTemplate = Handlebars.compile(userProfileSource);
 var userProfilePlaceholder = document.getElementById('user-profile');
 
 if (!checkAuthentication()) {

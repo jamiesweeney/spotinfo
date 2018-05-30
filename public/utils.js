@@ -3,8 +3,8 @@
 // Configuration variables
 var CLIENT_ID = 'f73f551e914f4915a7c38d75fa074cfb';
 var AUTH_URI = 'https://accounts.spotify.com/authorize'
-var LOGIN_URI = 'http://127.0.0.1:8080/login.html'
-var REDIRECT_URI = 'http://127.0.0.1:8080/home.html'
+var LOGIN_URI = 'http://127.0.0.1:8080/login'
+var REDIRECT_URI = 'http://127.0.0.1:8080/home'
 var SCOPE = 'user-read-private user-read-email'
 
 /**

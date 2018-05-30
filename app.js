@@ -7,8 +7,28 @@
  * https://developer.spotify.com/web-api/authorization-guide/#implicit_grant_flow
  */
 
-var express = require('express'); // Express web server framework
-var app = express();
+ var express = require( 'express' ) ;
+ var nunjucks = require( 'nunjucks' ) ;
+ var app = express() ;;
+
+ var PATH_TO_TEMPLATES = 'public' ;
+ nunjucks.configure( PATH_TO_TEMPLATES, {
+     autoescape: true,
+     express: app
+ } ) ;
+
+
+ app.get( '/', function( req, res ) {
+     return res.render( 'index.html' ) ;
+ } ) ;
+ app.get( '/login', function( req, res ) {
+     return res.render( 'login.html' ) ;
+ } ) ;
+ app.get( '/home', function( req, res ) {
+     return res.render( 'home.html' ) ;
+ } ) ;
+
+
 app.use(express.static(__dirname + '/public'));
-console.log('Listening on 8080');
-app.listen(8080);
+
+ app.listen( 8080 ) ;

@@ -30,6 +30,9 @@ app.get( '/home', function( req, res ) {
 app.get( '/playlists', function( req, res ) {
    return res.render( 'playlists.html' ) ;
 } ) ;
+app.get( '/favourites', function( req, res ) {
+   return res.render( 'favourites.html' ) ;
+} ) ;
 
 
 

@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block head_scripts %}
+{% endblock %}
+
+{% block page_content %}
+  <div class="container">
+
+
+    <div class="tab">
+      <button class="tablinks" onclick="openTab(event, 'fav-short')">Short term (~6w)</button>
+      <button class="tablinks" onclick="openTab(event, 'fav-medium')">Medium term (~6m)</button>
+      <button class="tablinks" onclick="openTab(event, 'fav-long')">Long term (~3y)</button>
+    </div>
+
+    <div id="fav-short" class="tabcontent">
+      <h2>Short term favourites</h2>
+      <h3>Favourite songs</h3>
+      <div id="fav-short-songs">
+        <table id="fav-short-songs-table">
+          <tr>
+            <th>Image</th>
+            <th onclick="sortTable(1, 'fav-short-songs-table', 'num')">Rank<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(2, 'fav-short-songs-table', 'text')">Name<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(3, 'fav-short-songs-table', 'text')">Artists<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(4, 'fav-short-songs-table', 'text')">Album<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(5, 'fav-short-songs-table', 'num')">Popularity<i class="fas fa-sort"></i></th>
+          </tr>
+        </table>
+      </div>
+
+      <h3>Favourite artists</h3>
+      <div id="fav-short-artists">
+        <table id="fav-short-artists-table">
+          <tr>
+            <th>Image</th>
+            <th onclick="sortTable(1, 'fav-short-artists-table', 'num')">Rank<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(2, 'fav-short-artists-table', 'text')">Name<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(3, 'fav-short-artists-table', 'text')">Genres<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(4, 'fav-short-artists-table', 'num')">Popularity<i class="fas fa-sort"></i></th>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+
+    <div id="fav-medium" class="tabcontent">
+      <h2>Medium term favourites</h2>
+      <h3>Favourite songs</h3>
+      <div id="fav-medium-songs">
+        <table id="fav-medium-songs-table">
+          <tr>
+            <th>Image</th>
+            <th onclick="sortTable(1, 'fav-medium-songs-table', 'num')">Rank<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(2, 'fav-medium-songs-table', 'text')">Name<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(3, 'fav-medium-songs-table', 'text')">Artists<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(4, 'fav-medium-songs-table', 'text')">Album<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(5, 'fav-medium-songs-table', 'num')">Popularity<i class="fas fa-sort"></i></th>
+          </tr>
+        </table>
+      </div>
+
+      <h3>Favourite artists</h3>
+      <div id="fav-medium-artists">
+        <table id="fav-medium-artists-table">
+          <tr>
+            <th>Image</th>
+            <th onclick="sortTable(1, 'fav-medium-artists-table', 'num')">Rank<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(2, 'fav-medium-artists-table', 'text')">Name<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(3, 'fav-medium-artists-table', 'text')">Genres<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(4, 'fav-medium-artists-table', 'num')">Popularity<i class="fas fa-sort"></i></th>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+    <div id="fav-long" class="tabcontent">
+      <h2>Long term favourites</h2>
+      <h3>Favourite songs</h3>
+      <div id="fav-long-songs">
+        <table id="fav-long-songs-table">
+          <tr>
+            <th>Image</th>
+            <th onclick="sortTable(1, 'fav-long-songs-table', 'num')">Rank<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(2, 'fav-long-songs-table', 'text')">Name<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(3, 'fav-long-songs-table', 'text')">Artists<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(4, 'fav-long-songs-table', 'text')">Album<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(5, 'fav-long-songs-table', 'num')">Popularity<i class="fas fa-sort"></i></th>
+          </tr>
+        </table>
+      </div>
+
+      <h3>Favourite artists</h3>
+      <div id="fav-long-artists">
+        <table id="fav-long-artists-table">
+          <tr>
+            <th>Image</th>
+            <th onclick="sortTable(1, 'fav-long-artists-table', 'num')">Rank<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(2, 'fav-long-artists-table', 'text')">Name<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(3, 'fav-long-artists-table', 'text')">Genres<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(4, 'fav-long-artists-table', 'num')">Popularity<i class="fas fa-sort"></i></th>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+
+
+
+  </div>
+{% endblock %}
+
+{% block body_scripts %}
+  <script src="favourites.js"></script>
+{% endblock %}

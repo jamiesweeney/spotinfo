@@ -18,6 +18,8 @@ var headerLogo = document.getElementById('header-btn-logo');
 var headerLogx = document.getElementById('header-btn-logx');
 var headerHome = document.getElementById('header-btn-home');
 var headerPlaylists = document.getElementById('header-btn-playlists');
+var headerFavourites = document.getElementById('header-btn-favourites');
+
 
 
 if (!checkAuthentication()) {
@@ -41,6 +43,9 @@ if (!checkAuthentication()) {
 
         headerPlaylists.href = "/playlists#" + paramsToURI(getHashParams())
         headerPlaylists.style.visibility = "visible"
+
+        headerFavourites.href = "/favourites#" + paramsToURI(getHashParams())
+        headerFavourites.style.visibility = "visible"
 
 
 

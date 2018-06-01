@@ -31,6 +31,26 @@ function paramsToURI(dict) {
 }
 
 
+function openTab(evt, tabName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length;   i++) {
+        tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
+}
+
+
+function getCount(arr) {
+  return arr.reduce((prev, curr) => (prev[curr] = ++prev[curr] || 1, prev), {})
+}
+
+
 /**
  * Generates a random string containing numbers and letters
  * @param  {number} length The length of the string
@@ -225,3 +245,27 @@ function sortTable(n, id, t) {
     }
   }
 }
+
+function fixFooter(){
+  footer = document.getElementsByClassName("footer")[0];
+  foot_temp = footer.innerHTML;
+  footer.innerHTML = "";
+  footer.innerHTML = foot_temp;
+  //
+  // console.log(footer)
+  // console.log(($(window).height() < ($(document).height()+footer.height)))
+  // if ($(window).height() < ($(document).height()+footer.height)){
+  //   footer.style.bottom=0;
+  // }else{
+  //   footer.style.bottom=0;
+  //   // footer.style.position="relative";
+  // }
+}
+
+window.onresize = function(event) {
+  console.log("ss")
+  fixFooter()
+};
+document.onresize = function(event) {
+  fixFooter()
+};

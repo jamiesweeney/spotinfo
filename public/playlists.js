@@ -2,7 +2,6 @@ var params = getHashParams();
 var access_token = params.access_token
 var user_id;
 
-console.log("sdfsf")
 
 var userPlaylistSource =
 `
@@ -36,8 +35,9 @@ var user_hist_div = document.getElementById('user-hist');
 var nuser_hist_div = document.getElementById('nuser-hist');
 
 
-var trace_temp = {
+var trace_temp_b = {
     x: null,
+    xabel:"asdasd",
     type: 'histogram',
     xbins: {
       end: null,
@@ -46,12 +46,44 @@ var trace_temp = {
     }
   };
 
-function getTrace(data){
-  var trace = trace_temp;
-  trace.x = data;
-  trace.xbins.end = Math.max(...data);
-  trace.xbins.size = Math.round(Math.max(...data)/10);
-  return trace
+var trace_temp_l = {
+    x: null,
+    y: null,
+    type: 'line',
+};
+
+var layout = {
+  title: "Plalist sizes",
+  xaxis: {
+    title: "Size of playlist",
+    titlefont: {
+      family: "Courier New, monospace",
+      size: 18,
+      color: "#7f7f7f"
+    }
+  },
+  yaxis: {
+    title: "No. of playlists",
+    titlefont: {
+      family: "Courier New, monospace",
+      size: 18,
+      color: "#7f7f7f"
+    }
+  }
+};
+
+function getTraces(data){
+  var trace_b = trace_temp_b;
+  trace_b.x = data;
+  trace_b.xbins.end = Math.max(...data);
+  trace_b.xbins.size = Math.round(Math.max(...data)/10);
+
+  var trace_l = trace_temp_l;
+  counts = getCount(data)
+  trace_l.x = Object.keys(counts);
+  trace_l.y = Object.values(counts);
+
+  return [trace_b, trace_l]
 }
 
 
@@ -59,7 +91,6 @@ function getTrace(data){
 
 
 var footer_div = document.getElementsByClassName("footer")[0]
-console.log(footer_div)
 
 function getPlaylists(url){
   $.ajax({
@@ -94,20 +125,19 @@ function insertPlaylist(data){
         'Authorization': 'Bearer ' + access_token
       },
       success: function(response) {
-        console.log("in")
         var node = document.createElement("tr");
         if (response.owner.id == user_id){
           node.innerHTML =  userPlaylistTemplate(response)
           userPlaylistPlaceholder.appendChild(node);
           user_pl_histo.push(response.tracks.total);
-          var trace = getTrace(user_pl_histo);
-          Plotly.newPlot(user_hist_div.id, [trace]);
+          var trace = getTraces(user_pl_histo);
+          Plotly.newPlot(user_hist_div.id, trace, layout=layout);
         }else{
           node.innerHTML =  nuserPlaylistTemplate(response)
           nuserPlaylistPlaceholder.appendChild(node);
           nuser_pl_histo.push(response.tracks.total);
-          var trace = getTrace(nuser_pl_histo);
-          Plotly.newPlot(nuser_hist_div.id, [trace]);
+          var trace = getTraces(nuser_pl_histo);
+          Plotly.newPlot(nuser_hist_div.id, trace, layout=layout);
         }
       },
       error: function(response){
@@ -142,6 +172,5 @@ function startup(){
 if (!checkAuthentication()) {
   window.location = LOGIN_URI;
 }else{
-  console.log("sdfsdf")
   startup()
 }

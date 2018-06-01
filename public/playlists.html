@@ -5,36 +5,48 @@
 {% endblock %}
 
 {% block page_content %}
+
+
   <div class="container">
 
-    <h2>Your playlists</h2>
-    <div id="user-playlists">
-      <table id="user-playlists-table">
-        <tr>
-          <th>Image</th>
-          <th onclick="sortTable(1, 'user-playlists-table', 'text')">Name<i class="fas fa-sort"></i></th>
-          <th onclick="sortTable(2, 'user-playlists-table', 'num')">No. of songs<i class="fas fa-sort"></i></th>
-          <th onclick="sortTable(3, 'user-playlists-table', 'num')">No. of followers<i class="fas fa-sort"></i></th>
-        </tr>
-      </table>
-      <h3>Playlist sizes</h3>
-      <div id="user-hist">
+    <div class="tab">
+      <button class="tablinks" onclick="openTab(event, 'tab-user')">Your playlists</button>
+      <button class="tablinks" onclick="openTab(event, 'tab-nuser')">Followed playlists</button>
+    </div>
+
+
+    <div id="tab-user" class="tabcontent">
+      <h2>Your playlists</h2>
+      <div id="user-playlists">
+        <table id="user-playlists-table">
+          <tr>
+            <th>Image</th>
+            <th onclick="sortTable(1, 'user-playlists-table', 'text')">Name<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(2, 'user-playlists-table', 'num')">No. of songs<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(3, 'user-playlists-table', 'num')">No. of followers<i class="fas fa-sort"></i></th>
+          </tr>
+        </table>
+        <h3>Playlist sizes</h3>
+        <div id="user-hist">
+        </div>
       </div>
     </div>
 
-    <h2>Followed playlists</h2>
-    <div id="nuser-playlists">
-      <table id="nuser-playlists-table">
-        <tr>
-          <th>Image</th>
-          <th onclick="sortTable(1, 'nuser-playlists-table', 'text')">Name<i class="fas fa-sort"></i></th>
-          <th onclick="sortTable(2, 'nuser-playlists-table', 'text')">Owner<i class="fas fa-sort"></i></th>
-          <th onclick="sortTable(3, 'nuser-playlists-table', 'num')">No. of songs<i class="fas fa-sort"></i></th>
-          <th onclick="sortTable(4, 'nuser-playlists-table', 'num')">No. of followers<i class="fas fa-sort"></i></th>
-        </tr>
-      </table>
-      <h3>Playlist sizes</h3>
-      <div id="nuser-hist">
+    <div id="tab-nuser" class="tabcontent">
+      <h2>Followed playlists</h2>
+      <div id="nuser-playlists">
+        <table id="nuser-playlists-table">
+          <tr>
+            <th>Image</th>
+            <th onclick="sortTable(1, 'nuser-playlists-table', 'text')">Name<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(2, 'nuser-playlists-table', 'text')">Owner<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(3, 'nuser-playlists-table', 'num')">No. of songs<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(4, 'nuser-playlists-table', 'num')">No. of followers<i class="fas fa-sort"></i></th>
+          </tr>
+        </table>
+        <h3>Playlist sizes</h3>
+        <div id="nuser-hist">
+        </div>
       </div>
     </div>
   </div>

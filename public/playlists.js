@@ -29,6 +29,34 @@ var nuserPlaylistSource =
 var nuserPlaylistTemplate = Handlebars.compile(nuserPlaylistSource);
 var nuserPlaylistPlaceholder = document.getElementById('nuser-playlists-table');
 
+var user_pl_histo = [];
+var nuser_pl_histo = [];
+
+var user_hist_div = document.getElementById('user-hist');
+var nuser_hist_div = document.getElementById('nuser-hist');
+
+
+var trace_temp = {
+    x: null,
+    type: 'histogram',
+    xbins: {
+      end: null,
+      size: null,
+      start: 0
+    }
+  };
+
+function getTrace(data){
+  var trace = trace_temp;
+  trace.x = data;
+  trace.xbins.end = Math.max(...data);
+  trace.xbins.size = Math.round(Math.max(...data)/10);
+  return trace
+}
+
+
+
+
 
 var footer_div = document.getElementsByClassName("footer")[0]
 console.log(footer_div)
@@ -71,9 +99,15 @@ function insertPlaylist(data){
         if (response.owner.id == user_id){
           node.innerHTML =  userPlaylistTemplate(response)
           userPlaylistPlaceholder.appendChild(node);
+          user_pl_histo.push(response.tracks.total);
+          var trace = getTrace(user_pl_histo);
+          Plotly.newPlot(user_hist_div.id, [trace]);
         }else{
           node.innerHTML =  nuserPlaylistTemplate(response)
           nuserPlaylistPlaceholder.appendChild(node);
+          nuser_pl_histo.push(response.tracks.total);
+          var trace = getTrace(nuser_pl_histo);
+          Plotly.newPlot(nuser_hist_div.id, [trace]);
         }
       },
       error: function(response){
@@ -86,6 +120,8 @@ function insertPlaylist(data){
 }
 
 function startup(){
+
+
   $.ajax({
       url: 'https://api.spotify.com/v1/me',
       headers: {

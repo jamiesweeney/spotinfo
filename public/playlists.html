@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block head_scripts %}
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 {% endblock %}
 
 {% block page_content %}
@@ -16,6 +17,9 @@
           <th onclick="sortTable(3, 'user-playlists-table', 'num')">No. of followers<i class="fas fa-sort"></i></th>
         </tr>
       </table>
+      <h3>Playlist sizes</h3>
+      <div id="user-hist">
+      </div>
     </div>
 
     <h2>Followed playlists</h2>
@@ -29,6 +33,9 @@
           <th onclick="sortTable(4, 'nuser-playlists-table', 'num')">No. of followers<i class="fas fa-sort"></i></th>
         </tr>
       </table>
+      <h3>Playlist sizes</h3>
+      <div id="nuser-hist">
+      </div>
     </div>
   </div>
 {% endblock %}

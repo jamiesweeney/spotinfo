@@ -5,16 +5,15 @@
 {% endblock %}
 
 {% block page_content %}
-
-
   <div class="container">
 
+    <!-- Tabs for changing between user and followed plalists -->
     <div class="tab">
       <button class="tablinks" onclick="openTab(event, 'tab-user')">Your playlists</button>
       <button class="tablinks" onclick="openTab(event, 'tab-nuser')">Followed playlists</button>
     </div>
 
-
+    <!-- User created playlists  -->
     <div id="tab-user" class="tabcontent">
       <h2>Your playlists</h2>
       <div id="user-playlists">
@@ -33,6 +32,7 @@
       </div>
     </div>
 
+    <!-- Followed playlists -->
     <div id="tab-nuser" class="tabcontent">
       <h2>Followed playlists</h2>
       <div id="nuser-playlists">
@@ -54,5 +54,5 @@
 {% endblock %}
 
 {% block body_scripts %}
-  <script src="playlists.js"></script>
+  <script src="js/playlists.js"></script>
 {% endblock %}

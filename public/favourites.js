@@ -41,7 +41,7 @@ function getFavourites(url, time, type){
         'Authorization': 'Bearer ' + access_token
       },
       success: function(response) {
-        console.log(response)
+        // console.log(response)
         if (response.next != null){
           getTracks(response.next, time, type);
         }
@@ -52,6 +52,7 @@ function getFavourites(url, time, type){
             insertTracks(data, time, Number(item)+1)
           }else{
             insertArtists(data, time, Number(item)+1)
+
           }
         }
       },
@@ -101,6 +102,46 @@ function insertArtists(data, time, rank){
 
         tableId = 'fav-'+time+'-artists-table'
         document.getElementById(tableId).appendChild(node);
+
+        if (time == "short"){
+          for (genre in response.genres){
+
+
+            g = response.genres[genre];
+            console.log(graph_nodes.getIds().includes(g))
+            if (graph_nodes.getIds().includes(g)){
+              console.log(graph_nodes.get(g))
+              graph_nodes.update({
+                id: g,
+                label: g,
+                font:{
+                  size: graph_nodes.get(g).font.size+10
+                }
+              });
+            }else{
+              graph_nodes.add({
+                id: g,
+                label: g,
+                font: {
+                  size:10
+                }
+              });
+            }
+
+            for (genre2 in response.genres){
+              g2 = response.genres[genre2]
+              if (g != g2){
+                graph_edges.add({
+                  from: g,
+                  to: g2
+                });
+              }else{
+                break;
+              }
+            }
+          }
+        }
+
       },
       error: function(response){
         if (response.status == 429){
@@ -143,5 +184,44 @@ function startup(){
 if (!checkAuthentication()) {
   window.location = LOGIN_URI;
 }else{
+
+  var graph_nodes = new vis.DataSet([]);
+  var graph_edges = new vis.DataSet([]);
+  var container = document.getElementById('mygraph');
+
+
   startup()
+  updt()
+
+}
+
+
+
+function updt(){
+  console.log("updating")
+  // provide the data in the vis format
+  var data = {
+      nodes: graph_nodes,
+      edges: graph_edges
+  };
+  var options = {
+    autoResize: true,
+    height: '100%',
+    width: '100%',
+    locale: 'en',
+    clickToUse: false,
+    configure: {},    // defined in the configure module.
+    edges: {},        // defined in the edges module.
+    nodes: {},        // defined in the nodes module.
+    groups: {},       // defined in the groups module.
+    layout: {},       // defined in the layout module.
+    interaction: {},  // defined in the interaction module.
+    manipulation: {}, // defined in the manipulation module.
+    physics: {enabled:true}      // defined in the physics module.
+  }
+
+
+  // initialize your network!
+  var network = new vis.Network(container, data, options);
+  // setTimeout ( function(){ updt() }, 5000 );
 }

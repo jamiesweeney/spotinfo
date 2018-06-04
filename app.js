@@ -18,6 +18,7 @@
  } ) ;
 
 
+
 app.get( '/', function( req, res ) {
    return res.render( 'index.html' ) ;
 } ) ;
@@ -33,10 +34,15 @@ app.get( '/playlists', function( req, res ) {
 app.get( '/favourites', function( req, res ) {
    return res.render( 'favourites.html' ) ;
 } ) ;
+app.get( '/test', function( req, res ) {
+   return res.render( 'test.html' ) ;
+} ) ;
+
 
 
 
 
 app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/node_modules'));
 
  app.listen( 8080 ) ;

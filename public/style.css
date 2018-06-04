@@ -1,3 +1,8 @@
+
+html body{
+  background-color: white;
+}
+
 /* Style the header with a grey background and some padding */
 .header {
   overflow: hidden;
@@ -224,4 +229,17 @@ table{
     padding: 6px 12px;
     border: 1px solid #ccc;
     border-top: none;
+}
+
+#graph-container{
+  padding: 50px;
+  border-style: : solid;
+  height: 600px;
+  width: 800px;
+}
+
+#mygraph {
+  position: absolute;
+  height: 600px;
+  width: 800px;
 }

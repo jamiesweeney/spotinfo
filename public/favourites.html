@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 
 {% block head_scripts %}
+<script type="text/javascript" src="/vis/dist/vis.js"></script>
+<link href="/vis/dist/vis.css" rel="stylesheet" type="text/css" />
+
+<!-- <script src="sigma.parsers.json.min.js"></script> -->
 {% endblock %}
 
 {% block page_content %}
@@ -108,6 +112,11 @@
       </div>
     </div>
 
+    <div id="graph-container">
+    <div id="mygraph"></div>
+  </div>
+
+
 
 
 
@@ -115,5 +124,6 @@
 {% endblock %}
 
 {% block body_scripts %}
+
   <script src="favourites.js"></script>
 {% endblock %}

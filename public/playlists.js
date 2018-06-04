@@ -10,6 +10,7 @@ var userPlaylistSource =
   <td>{{name}}</td>
   <td>{{tracks.total}}</td>
   <td>{{followers.total}}</td>
+  <td>{{public}}</td>
 </tr>
 `;
 var userPlaylistTemplate = Handlebars.compile(userPlaylistSource);
@@ -105,6 +106,7 @@ function getPlaylists(url){
 
         for (var item in response.items){
           data = response.items[item]
+          console.log(data)
           insertPlaylist(data)
         }
       },
@@ -127,6 +129,7 @@ function insertPlaylist(data){
       success: function(response) {
         var node = document.createElement("tr");
         if (response.owner.id == user_id){
+          response.public = response.public?"public":"private"; 
           node.innerHTML =  userPlaylistTemplate(response)
           userPlaylistPlaceholder.appendChild(node);
           user_pl_histo.push(response.tracks.total);

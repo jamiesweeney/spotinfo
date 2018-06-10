@@ -204,6 +204,9 @@ function updt(){
       nodes: graph_nodes,
       edges: graph_edges
   };
+
+  console.log(graph_nodes.length)
+
   var options = {
     autoResize: true,
     height: '100%',
@@ -217,11 +220,16 @@ function updt(){
     layout: {},       // defined in the layout module.
     interaction: {},  // defined in the interaction module.
     manipulation: {}, // defined in the manipulation module.
-    physics: {enabled:true}      // defined in the physics module.
+    physics: {
+      enabled:true,
+      barnesHut: {
+        gravitationalConstant: 0.00001,
+        avoidOverlap: 1000,
+      }
+    }      // defined in the physics module.
   }
 
 
   // initialize your network!
   var network = new vis.Network(container, data, options);
-  // setTimeout ( function(){ updt() }, 5000 );
 }

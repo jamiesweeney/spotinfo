@@ -1,6 +1,12 @@
-var params = getHashParams();
-var access_token = params.access_token
+/**
+* Jamie Sweeney
+* June 2018
+* home.js - Provides the  js logic for the home page
+*         - Checks authentication, redirects to login if not authenticated
+**/
 
+
+// HTML template objects
 var userProfileSource =
 `
 <div class="media">
@@ -23,13 +29,35 @@ var userProfileSource =
   </div>
 </div>
 `;
-
-
 var userProfileTemplate = Handlebars.compile(userProfileSource);
+
+
+// Function definitions
+
+
+
+// DOM elements
 var userProfilePlaceholder = document.getElementById('user-profile');
 
+
+// Get url paramters (if any)
+var params = getHashParams();
+var access_token = params.access_token
+
+
+// If authentication check fails then redirect to login
 if (!checkAuthentication()) {
   window.location = LOGIN_URI;
+// If correctly authenticated
+}else{
+  // Get user data with GET request
+  getUserData(access_token)
+}
+
+
+
+if (!checkAuthentication()) {
+
 }else{
   $.ajax({
       url: 'https://api.spotify.com/v1/me',

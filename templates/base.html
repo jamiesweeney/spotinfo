@@ -5,6 +5,7 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/style.css">
 
     <!-- Scripts -->
@@ -12,6 +13,7 @@
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/all.js" integrity="sha384-xymdQtn1n3lH2wcu0qhcdaOpQwyoarkgLVxC/wZ5q7h9gHtxICrpcaSUfygqZGOe" crossorigin="anonymous"></script>
     <script src="js/utils.js"></script>
+
     {% block head_scripts %}
     {% endblock %}
   </head>
@@ -34,16 +36,13 @@
     </div>
 
     <!-- Actual contents -->
+
+    <div class="loader-container"><div class="loader"></div></div>
     <div class="page_content">
       {% block page_content %}
       {% endblock %}
     </div>
 
-    <!-- Footer -->
-    <div class="footer">
-      <h2>What ever goes in footers</h2>
-      <h3>Will go here</h3>
-    </div>
 
     <!-- Scripts -->
     <script src="js/base.js"></script>

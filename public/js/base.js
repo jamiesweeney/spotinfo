@@ -1,6 +1,12 @@
-var params = getHashParams();
-var access_token = params.access_token
+/**
+* Jamie Sweeney
+* June 2018
+* base.js - Provides the  js logic for the base html file./
+*         - Checks authentication, adjusts header accordingly
+**/
 
+
+// HTML template objects
 var profileImageSource =
 `
 <div class="pull-left">
@@ -9,9 +15,38 @@ var profileImageSource =
 </div>
 <a href={{external_urls.spotify}}>{{display_name}}</a>
 `;
-
-
 var profileImageTemplate = Handlebars.compile(profileImageSource);
+
+
+// Function definitions
+
+
+/**
+ * Inserts the data from getUserData into the page header.
+ * @param  {json} response The JSON of the response recieved from getUserData
+*/
+function insertUserData(response){
+  // Put data into template
+  profileImagePlaceholder.innerHTML = profileImageTemplate(response);
+
+  // Get extra paramters to add to buttons
+  var link_params = paramsToURI(getHashParams())
+
+  // Adjust header link buttons
+  headerLogx.innerHTML = "Logout"
+  headerLogx.href = "/logout"
+
+  headerHome.href = "/home#" + link_params
+
+  headerPlaylists.href = "/playlists#" + link_params
+  headerPlaylists.style.visibility = "visible"
+
+  headerFavourites.href = "/favourites#" + link_params
+  headerFavourites.style.visibility = "visible"
+}
+
+
+// DOM elements
 var profileImagePlaceholder = document.getElementById('profile-image');
 
 var headerLogo = document.getElementById('header-btn-logo');
@@ -21,38 +56,12 @@ var headerPlaylists = document.getElementById('header-btn-playlists');
 var headerFavourites = document.getElementById('header-btn-favourites');
 
 
+// Get url paramters (if any)
+var params = getHashParams();
+var access_token = params.access_token
 
-if (!checkAuthentication()) {
-
-}else{
-  $.ajax({
-      url: 'https://api.spotify.com/v1/me',
-      headers: {
-        'Authorization': 'Bearer ' + access_token
-      },
-      success: function(response) {
-        if (response.display_name == null){
-          response.display_name = response.id
-        }
-        profileImagePlaceholder.innerHTML = profileImageTemplate(response);
-
-        headerLogx.innerHTML = "Logout"
-        headerLogx.href = "/logout"
-
-        headerHome.href = "/home#" + paramsToURI(getHashParams())
-
-        headerPlaylists.href = "/playlists#" + paramsToURI(getHashParams())
-        headerPlaylists.style.visibility = "visible"
-
-        headerFavourites.href = "/favourites#" + paramsToURI(getHashParams())
-        headerFavourites.style.visibility = "visible"
-
-
-
-        console.log(headerPlaylists)
-
-
-      },
-      async: true
-  });
+userData = getUserData(access_token)
+if (userData){
+  insertUserData(userData)
 }
+stopLoading()

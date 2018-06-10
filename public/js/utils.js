@@ -51,6 +51,38 @@ function getCount(arr) {
 }
 
 
+
+/**
+ * Retrieves the user data via a GET request.
+ * @param  {string} access_token The access token to use when making the GET request.
+*/
+function getUserData(access_token){
+  var response_data;
+  $.ajax({
+      url: 'https://api.spotify.com/v1/me',
+      headers: {
+        'Authorization': 'Bearer ' + access_token
+      },
+      success: function(response) {
+        // Make sure we don't have a null display name
+        if (response.display_name == null){
+          response.display_name = response.id
+        }
+        response_data = response
+      },
+      error: function(response) {
+        if (response.status == 429){
+          return_data = setTimeout ( function(){ getUserData() }, 5000 );
+        }
+      },
+      async: false
+  });
+  return response_data
+}
+
+
+
+
 /**
  * Generates a random string containing numbers and letters
  * @param  {number} length The length of the string
@@ -71,21 +103,18 @@ function generateRandomString(length) {
 */
 function authenticateWithSpotify(){
 
-  // load config
-  var client_id = CLIENT_ID;
-  var redirect_uri = REDIRECT_URI;
-  var scope = SCOPE;
+  // Load config
   var url = AUTH_URI;
 
-  // generate a state key
+  // Generate a state key
   var state = generateRandomString(16);
 
-  // make authentication request
+  // Make authentication request
   url += '?response_type=token';
-  url += '&client_id=' + encodeURIComponent(client_id);
-  url += '&scope=' + encodeURIComponent(scope);
-  url += '&redirect_uri=' + encodeURIComponent(redirect_uri);
-  url += '&state=' + encodeURIComponent(state);
+  url += '&client_id=' + encodeURIComponent(CLIENT_ID);
+  url += '&scope=' + encodeURIComponent(SCOPE);
+  url += '&redirect_uri=' + encodeURIComponent(REDIRECT_URI);
+  url += '&state=' + encodeURIComponent(SCOPE);
   url += '&show_dialog=' + encodeURIComponent(true);
   window.location = url;
 };
@@ -117,52 +146,18 @@ function checkAuthentication(){
       success: function(response) {
         return_status = true;
       },
-      error: function(response) {
-        return_status = false
-        console.log("Auth invalid")
-        console.log(response)
-        switch(response.status) {
-          case 400:
-            // TODO: Handle error
-            console.log("400 - Bad Request");
-            break;
-          case 401:
-            // TODO: Handle error
-            console.log("401 - Unauthorized");
-            break;
-          case 403:
-            // TODO: Handle error
-            console.log("403 - Forbidden");
-            break;
-          case 404:
-            // TODO: Handle error
-            console.log("404 - Not found");
-            break;
-          case 429:
-            return_status = setTimeout ( function(){ checkAuthentication() }, 5000 );
-            break;
-          case 500:
-            // TODO: Handle error
-            console.log("500 - Internal server error");
-            break;
-          case 502:
-            // TODO: Handle error
-            console.log("502 - Bad gateway");
-            break;
-          case 503:
-            // TODO: Handle error
-            console.log("503 - Service unavailable");
-            break;
-          default:
-            console.log("Unknown error");
-        }
-      },
+
       async: false
   });
   return return_status
 }
 
 
+
+function stopLoading(){
+  document.getElementsByClassName("loader-container")[0].style.display = "none";
+  document.getElementsByClassName("page_content")[0].style.display = "block";
+}
 
 
 function sortTable(n, id, t) {
@@ -245,27 +240,3 @@ function sortTable(n, id, t) {
     }
   }
 }
-
-function fixFooter(){
-  footer = document.getElementsByClassName("footer")[0];
-  foot_temp = footer.innerHTML;
-  footer.innerHTML = "";
-  footer.innerHTML = foot_temp;
-  //
-  // console.log(footer)
-  // console.log(($(window).height() < ($(document).height()+footer.height)))
-  // if ($(window).height() < ($(document).height()+footer.height)){
-  //   footer.style.bottom=0;
-  // }else{
-  //   footer.style.bottom=0;
-  //   // footer.style.position="relative";
-  // }
-}
-
-window.onresize = function(event) {
-  console.log("ss")
-  fixFooter()
-};
-document.onresize = function(event) {
-  fixFooter()
-};

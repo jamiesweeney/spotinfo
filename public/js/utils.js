@@ -1,4 +1,8 @@
-
+/**
+* Jamie Sweeney
+* June 2018
+* utils.js - Provides js functions used by the whole project.
+**/
 
 // Configuration variables
 var CLIENT_ID = 'f73f551e914f4915a7c38d75fa074cfb';
@@ -7,6 +11,8 @@ var LOGIN_URI = 'http://127.0.0.1:8080/login'
 var REDIRECT_URI = 'http://127.0.0.1:8080/home'
 var SCOPE = 'user-read-private user-read-email'
 
+
+// Function definitions
 /**
  * Obtains parameters from the hash of the URL
  * @return Object
@@ -21,7 +27,11 @@ function getHashParams() {
   return hashParams;
 }
 
-
+/**
+ * Converts URL parameters to url 
+ * @param {json} data The parameters to use  
+ * @return {string} The url created
+ */
 function paramsToURI(dict) {
   var str = [];
   for(var p in dict){
@@ -30,31 +40,44 @@ function paramsToURI(dict) {
   return str.join("&");
 }
 
-
+/**
+ * Opens a tab    
+ * @param {event} evt The event created by clicking the tab header   
+ * @param {string} tabName The id of the tab to be shown  
+ */
 function openTab(evt, tabName) {
-    var i, tabcontent, tablinks;
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length;   i++) {
-        tabcontent[i].style.display = "none";
-    }
-    tablinks = document.getElementsByClassName("tablinks");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
+    
+  // Get all tabs
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  // Hide them all
+  for (i = 0; i < tabcontent.length;   i++) {
+      tabcontent[i].style.display = "none";
+  }
+  // Make all links unactive
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  // Make selected tab visible and active
+  document.getElementById(tabName).style.display = "block";
+  evt.currentTarget.className += " active";
 }
 
-
+/**
+ * Returns the counts for all elements in an array 
+ * @param {[int]} arr An array of integers  
+ * @return {dict} Dictionary with format {element:count}
+ */
 function getCount(arr) {
   return arr.reduce((prev, curr) => (prev[curr] = ++prev[curr] || 1, prev), {})
 }
 
-
-
 /**
  * Retrieves the user data via a GET request.
  * @param  {string} access_token The access token to use when making the GET request.
+ * @return  {json} The user data json response.
+ * 
 */
 function getUserData(access_token){
   var response_data;
@@ -71,17 +94,16 @@ function getUserData(access_token){
         response_data = response
       },
       error: function(response) {
+        // Retry in 5 seconds if too many requests
         if (response.status == 429){
           return_data = setTimeout ( function(){ getUserData() }, 5000 );
         }
       },
+      // This is essential, since we need the rest of the page to wait for this to happen
       async: false
   });
   return response_data
 }
-
-
-
 
 /**
  * Generates a random string containing numbers and letters
@@ -97,7 +119,6 @@ function generateRandomString(length) {
   return text;
 };
 
-
 /**
  * Gets the user authenticated using the implicit grant redirect
 */
@@ -107,7 +128,7 @@ function authenticateWithSpotify(){
   var url = AUTH_URI;
 
   // Generate a state key
-  var state = generateRandomString(16);
+  var state = generateRandomString(32);
 
   // Make authentication request
   url += '?response_type=token';
@@ -119,41 +140,13 @@ function authenticateWithSpotify(){
   window.location = url;
 };
 
-
 /**
- * Checks the users auth parameters by performing a request
- * @return {boolean} Authentication status
+ * Sorts a table for a given column.
+ * @param  {int} n The column to sort by.
+ * @param  {string} id The id of the table div.
+ * @return {t} The datatype thats being sorted, either "text" or "num".
+ * 
 */
-function checkAuthentication(){
-
-  // get the auth parameters
-  var params = getHashParams();
-  var access_token = params.access_token,
-      state = params.state
-
-  if (access_token == null || state == null){
-    return false;
-  }
-
-  var return_status;
-
-  // attempt to get profile info
-  $.ajax({
-      url: 'https://api.spotify.com/v1/me',
-      headers: {
-        'Authorization': 'Bearer ' + access_token
-      },
-      success: function(response) {
-        return_status = true;
-      },
-
-      async: false
-  });
-  return return_status
-}
-
-
-
 function sortTable(n, id, t) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
   table = document.getElementById(id);
@@ -162,8 +155,6 @@ function sortTable(n, id, t) {
   dir = "asc";
 
   headers =  table.getElementsByTagName("TH");
-  console.log(headers)
-  console.log(headers[0].childNodes)
   for (i = 1; i < (headers.length - 1); i++) {
     headers[i].childNodes[1].innerHTML="<i class='fas fa-sort'></i>";
   }

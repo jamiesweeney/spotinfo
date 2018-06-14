@@ -128,7 +128,7 @@ function authenticateWithSpotify(){
   var url = AUTH_URI;
 
   // Generate a state key
-  var state = generateRandomString(32);
+  // var state = generateRandomString(32);
 
   // Make authentication request
   url += '?response_type=token';

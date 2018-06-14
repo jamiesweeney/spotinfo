@@ -118,6 +118,14 @@ table{
   /* display:  inline-block; */
 }
 
+#login-button-container{
+  text-align: center;
+  font-display: center;
+}
+#login-button{
+  width: 40%;
+
+}
 
 
 #user-profile{

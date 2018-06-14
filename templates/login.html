@@ -7,10 +7,21 @@
   <div class="container">
 
     <!-- Login button which redirects to spotify auth -->
-    <div id="login">
-      <h1>Click below to authorise spotinfo</h1>
+    <h1>Click below to authorise spotinfo</h1>
+    <div id="login-button-container">
       <button id="login-button" class="btn btn-primary">Log in with Spotify</button>
     </div>
+
+    <div class="home-text">
+        <div>
+          <p>When you click the login button, you are redirected to a Spotify login page, where you can authenticate your account access. Spotify will then redirect you back to this site
+            with an access token that can be used to retrieve your information. Since it is purely Spotify that handles authentication, all access codes and personal data
+            exists only within your machine and the Spotify server, and do not go through the spotinfo server at any point. This also means that any computations or
+            operations performed using your data will be made within your browser, the Spotinfo server simply provides the building blocks to perform these computations.
+             
+          </p>
+        </div>
+      </div>
   </div>
 {% endblock %}
 

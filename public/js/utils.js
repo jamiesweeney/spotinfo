@@ -154,12 +154,6 @@ function checkAuthentication(){
 
 
 
-function stopLoading(){
-  document.getElementsByClassName("loader-container")[0].style.display = "none";
-  document.getElementsByClassName("page_content")[0].style.display = "block";
-}
-
-
 function sortTable(n, id, t) {
   var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
   table = document.getElementById(id);

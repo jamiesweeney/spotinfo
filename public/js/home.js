@@ -32,10 +32,6 @@ var userProfileSource =
 var userProfileTemplate = Handlebars.compile(userProfileSource);
 
 
-// Function definitions
-
-
-
 // DOM elements
 var userProfilePlaceholder = document.getElementById('user-profile');
 
@@ -44,33 +40,12 @@ var userProfilePlaceholder = document.getElementById('user-profile');
 var params = getHashParams();
 var access_token = params.access_token
 
-
-// If authentication check fails then redirect to login
-if (!checkAuthentication()) {
+// Get user data
+userData = getUserData(access_token)
+if (userData){
+  // Insert into profile template
+  userProfilePlaceholder.innerHTML = userProfileTemplate(userData);
+}else{
+  // or redirect to login
   window.location = LOGIN_URI;
-// If correctly authenticated
-}else{
-  // Get user data with GET request
-  getUserData(access_token)
-}
-
-
-
-if (!checkAuthentication()) {
-
-}else{
-  $.ajax({
-      url: 'https://api.spotify.com/v1/me',
-      headers: {
-        'Authorization': 'Bearer ' + access_token
-      },
-      success: function(response) {
-        console.log(response)
-        if (response.display_name == null){
-          response.display_name = response.id
-        }
-        userProfilePlaceholder.innerHTML = userProfileTemplate(response);
-      },
-      async: true
-  });
 }

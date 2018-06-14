@@ -1,6 +1,12 @@
-var params = getHashParams();
-var access_token = params.access_token
+/**
+* Jamie Sweeney
+* June 2018
+* home.js - Provides the  js logic for the home page
+*         - Checks authentication, redirects to login if not authenticated
+**/
 
+
+// HTML template objects
 var userProfileSource =
 `
 <div class="media">
@@ -23,26 +29,23 @@ var userProfileSource =
   </div>
 </div>
 `;
-
-
 var userProfileTemplate = Handlebars.compile(userProfileSource);
+
+
+// DOM elements
 var userProfilePlaceholder = document.getElementById('user-profile');
 
-if (!checkAuthentication()) {
-  window.location = LOGIN_URI;
+
+// Get url paramters (if any)
+var params = getHashParams();
+var access_token = params.access_token
+
+// Get user data
+userData = getUserData(access_token)
+if (userData){
+  // Insert into profile template
+  userProfilePlaceholder.innerHTML = userProfileTemplate(userData);
 }else{
-  $.ajax({
-      url: 'https://api.spotify.com/v1/me',
-      headers: {
-        'Authorization': 'Bearer ' + access_token
-      },
-      success: function(response) {
-        console.log(response)
-        if (response.display_name == null){
-          response.display_name = response.id
-        }
-        userProfilePlaceholder.innerHTML = userProfileTemplate(response);
-      },
-      async: true
-  });
+  // or redirect to login
+  window.location = LOGIN_URI;
 }

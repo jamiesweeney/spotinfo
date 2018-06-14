@@ -9,7 +9,7 @@
 var express = require('express'),
   nunjucks = require('nunjucks');
 
-var app = express() ;;
+var app = express() ;
 
 
 // URL to template matching object
@@ -34,10 +34,6 @@ nunjucks.configure(PATH_TO_TEMPLATES, {
 app.get('/', function(req, res){
   return res.render('index.html');
 });
-app.get('/test', function(req, res){
-  return res.render('test.html');
-});
-
 app.get('/login', function(req, res){
   return res.render('login.html');
 });

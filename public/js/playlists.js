@@ -1,60 +1,16 @@
-var params = getHashParams();
-var access_token = params.access_token
-var user_id;
+/**
+* Jamie Sweeney
+* June 2018
+* favourites.js - Provides the js logic for the playlists html file./
+*               - Displays all playlists split by owned/followed
+**/
 
-
-var userPlaylistSource =
-`
-<tr>
-  <td><img class="media-object" width="50" src="{{images.0.url}}" /></td>
-  <td>{{name}}</td>
-  <td>{{tracks.total}}</td>
-  <td>{{followers.total}}</td>
-  <td>{{public}}</td>
-</tr>
-`;
-var userPlaylistTemplate = Handlebars.compile(userPlaylistSource);
-var userPlaylistPlaceholder = document.getElementById('user-playlists-table');
-
-var nuserPlaylistSource =
-`
-<tr>
-  <td><img class="media-object" width="50" src="{{images.0.url}}" /></td>
-  <td>{{name}}</td>
-  <td>{{owner.id}}</td>
-  <td>{{tracks.total}}</td>
-  <td>{{followers.total}}</td>
-</tr>
-`;
-var nuserPlaylistTemplate = Handlebars.compile(nuserPlaylistSource);
-var nuserPlaylistPlaceholder = document.getElementById('nuser-playlists-table');
-
-var user_pl_histo = [];
-var nuser_pl_histo = [];
-
-var user_hist_div = document.getElementById('user-hist');
-var nuser_hist_div = document.getElementById('nuser-hist');
-
-
-var trace_temp_b = {
-    x: null,
-    xabel:"asdasd",
-    type: 'histogram',
-    xbins: {
-      end: null,
-      size: null,
-      start: 0
-    }
-  };
-
-var trace_temp_l = {
-    x: null,
-    y: null,
-    type: 'line',
-};
-
+// Config options
+// Layout options for chart
 var layout = {
-  title: "Plalist sizes",
+  title: "Playlist sizes",
+  height: 450,
+  width: 900,
   xaxis: {
     title: "Size of playlist",
     titlefont: {
@@ -72,14 +28,66 @@ var layout = {
     }
   }
 };
+// Trace template for histogram graph
+var histo_trace_template = {
+  x: null,
+  type: 'histogram',
+  xbins: {
+    end: null,
+    size: null,
+    start: 0
+  }
+};
+// Trace template for line graph 
+var line_trace_template = {
+  x: null,
+  y: null,
+  type: 'line',
+};
 
+
+// HTML template objects
+var userPlaylistSource =
+`
+<tr>
+  <td><img class="media-object" width="50" src="{{images.0.url}}" /></td>
+  <td>{{name}}</td>
+  <td>{{tracks.total}}</td>
+  <td>{{followers.total}}</td>
+  <td>{{public}}</td>
+</tr>
+`;
+var userPlaylistTemplate = Handlebars.compile(userPlaylistSource);
+
+var nuserPlaylistSource =
+`
+<tr>
+  <td><img class="media-object" width="50" src="{{images.0.url}}" /></td>
+  <td>{{name}}</td>
+  <td>{{owner.id}}</td>
+  <td>{{tracks.total}}</td>
+  <td>{{followers.total}}</td>
+</tr>
+`;
+var nuserPlaylistTemplate = Handlebars.compile(nuserPlaylistSource);
+
+
+// Function definitions
+/**
+ * Converts the sizes array to a usable trace
+ * @param  {json} data The request url
+ * @return {array} Array containing [histo_trace, line_trace] 
+*/
 function getTraces(data){
-  var trace_b = trace_temp_b;
+
+  // Construct histogram trace
+  var trace_b = histo_trace_template;
   trace_b.x = data;
   trace_b.xbins.end = Math.max(...data);
   trace_b.xbins.size = Math.round(Math.max(...data)/10);
 
-  var trace_l = trace_temp_l;
+  // Construct line trace
+  var trace_l = line_trace_template;
   counts = getCount(data)
   trace_l.x = Object.keys(counts);
   trace_l.y = Object.values(counts);
@@ -87,12 +95,10 @@ function getTraces(data){
   return [trace_b, trace_l]
 }
 
-
-
-
-
-var footer_div = document.getElementsByClassName("footer")[0]
-
+/**
+ * Gets lists of all owned and followed playlists.
+ * @param  {string} url The request url 
+*/
 function getPlaylists(url){
   $.ajax({
       url: url,
@@ -100,17 +106,19 @@ function getPlaylists(url){
         'Authorization': 'Bearer ' + access_token
       },
       success: function(response) {
+        // Recursive call if most pages
         if (response.next != null){
           getPlaylists(response.next);
         }
 
+        // Insert each playlist to the table
         for (var item in response.items){
           data = response.items[item]
-          console.log(data)
           insertPlaylist(data)
         }
       },
       error: function(response){
+        // Retry in 5 seconds if too many requests
         if (response.status == 429){
           setTimeout ( function(){ getPlaylists( url ) }, 5000 );
         }
@@ -119,7 +127,10 @@ function getPlaylists(url){
   });
 }
 
-
+/**
+ * Gets all the playlist data for a single playlist and adds it to the relevant table
+ * @param  {json} data The response data, for that list element 
+*/
 function insertPlaylist(data){
   $.ajax({
       url: data.href,
@@ -127,23 +138,37 @@ function insertPlaylist(data){
         'Authorization': 'Bearer ' + access_token
       },
       success: function(response) {
+        // Create table row node 
         var node = document.createElement("tr");
+
+        // If an owned playlist
         if (response.owner.id == user_id){
+          // Add to table
           response.public = response.public?"public":"private"; 
           node.innerHTML =  userPlaylistTemplate(response)
           userPlaylistPlaceholder.appendChild(node);
+          
+          // Add to chart dataset
           user_pl_histo.push(response.tracks.total);
+          // Refresh chart
           var trace = getTraces(user_pl_histo);
           Plotly.newPlot(user_hist_div.id, trace, layout=layout);
+
+        // If a followed playlist
         }else{
+          // Add to table
           node.innerHTML =  nuserPlaylistTemplate(response)
           nuserPlaylistPlaceholder.appendChild(node);
+          
+          // Add to chart dataset
           nuser_pl_histo.push(response.tracks.total);
+          // Refresh chart
           var trace = getTraces(nuser_pl_histo);
           Plotly.newPlot(nuser_hist_div.id, trace, layout=layout);
         }
       },
       error: function(response){
+        // Rety in 5 seconds if too many requests
         if (response.status == 429){
           setTimeout ( function(){ insertPlaylist( data ) }, 5000 );
 
@@ -152,28 +177,29 @@ function insertPlaylist(data){
   });
 }
 
-function startup(){
+
+//DOM elements
+var userPlaylistPlaceholder = document.getElementById('user-playlists-table');
+var nuserPlaylistPlaceholder = document.getElementById('nuser-playlists-table');
+var user_hist_div = document.getElementById('user-hist');
+var nuser_hist_div = document.getElementById('nuser-hist');
 
 
-  $.ajax({
-      url: 'https://api.spotify.com/v1/me',
-      headers: {
-        'Authorization': 'Bearer ' + access_token
-      },
-      success: function(response){
-        user_id  = response.id
-        getPlaylists('https://api.spotify.com/v1/me/playlists?limit=50&offset=0')
-      },
-      error: function(response){
-        if (response.status == 429){
-          setTimeout ( function(){ startup() }, 5000 );
-        }
-      }
-  });
-}
+// Get url paramters (if any)
+var params = getHashParams();
+var access_token = params.access_token
 
-if (!checkAuthentication()) {
-  window.location = LOGIN_URI;
+// Get user data
+userData = getUserData(access_token)
+if (userData){
+
+  var user_pl_histo = [];
+  var nuser_pl_histo = [];
+  var user_id = userData.id;
+  getPlaylists('https://api.spotify.com/v1/me/playlists?limit=50&offset=0')
 }else{
-  startup()
+  // or redirect to login
+  window.location = LOGIN_URI;
 }
+
+

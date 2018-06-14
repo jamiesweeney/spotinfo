@@ -7,11 +7,5 @@
 {% endblock %}
 
 {% block body_scripts %}
-  <script>
-  if (checkAuthentication()) {
-    window.location = REDIRECT_URI;
-  }else{
-    window.location = LOGIN_URI;
-  }
-  </script>
+  <script src="js/index.js"></script>
 {% endblock %}

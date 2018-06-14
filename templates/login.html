@@ -15,11 +15,5 @@
 {% endblock %}
 
 {% block body_scripts %}
-  <script>
-    if (checkAuthentication()) {
-      // window.location = REDIRECT_URI;
-    }else{
-      document.getElementById("login-button").addEventListener('click', function() {authenticateWithSpotify();});
-    }
-  </script>
+  <script src="js/login.js"></script>
 {% endblock %}

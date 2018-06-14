@@ -42,6 +42,11 @@
             <th onclick="sortTable(4, 'fav-short-artists-table', 'num')">Popularity<i class="fas fa-sort"></i></th>
           </tr>
         </table>
+
+        <!-- Genre graph -->
+        <div id="graph-container-short" class="graph-container">
+          <div id="g-graph-short" class="genregraph"></div>
+        </div>
       </div>
     </div>
 
@@ -73,6 +78,10 @@
           </tr>
         </table>
       </div>
+      <!-- Genre graph -->
+      <div id="graph-container-medium" class="graph-container">
+        <div id="g-graph-medium" class="genregraph"></div>
+      </div>
     </div>
 
     <!-- Long time period  -->
@@ -103,11 +112,10 @@
           </tr>
         </table>
       </div>
-    </div>
-
-    <!-- Genre graph -->
-    <div id="graph-container">
-      <div id="mygraph"></div>
+      <!-- Genre graph -->
+      <div id="graph-container-long" class="graph-container">
+        <div id="g-graph-long" class="genregraph"></div>
+      </div>
     </div>
   </div>
 {% endblock %}

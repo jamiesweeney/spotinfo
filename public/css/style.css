@@ -117,25 +117,26 @@ table{
     border-top: none;
 }
 
-#graph-container{
+.graph-container{
   padding: 50px;
-  border-style: : solid;
   height: 600px;
   width: 800px;
+  border: 1px solid #ccc;
 }
 
-#mygraph {
-  position: absolute;
+.genregraph { 
   height: 600px;
-  width: 800px;
+  width: 100%;
+  border: 2px solid #ccc;
 }
+
 
 
 
 .loader-container {
   display: flex;
-  min-width: 100%;
-  min-height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .loader {

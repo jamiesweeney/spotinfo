@@ -9,8 +9,6 @@ html body {
 }
 
 
-
-
 /*
   Header style
 */
@@ -45,7 +43,7 @@ html body {
   background-color: dodgerblue;
   color: white;
 }
-#header-btn-playlists header-btn-favourites {
+#header-btn-playlists, #header-btn-favourites {
   display: none;
 }
 .header-left{
@@ -75,14 +73,4 @@ html body {
 }
 .header-right a {
   float: right;
-}
-
-
-
-
-.loader-container{
-  display: block;
-}
-.page_content{
-  display: none;
 }

@@ -19,8 +19,6 @@ var profileImageTemplate = Handlebars.compile(profileImageSource);
 
 
 // Function definitions
-
-
 /**
  * Inserts the data from getUserData into the page header.
  * @param  {json} response The JSON of the response recieved from getUserData
@@ -39,10 +37,10 @@ function insertUserData(response){
   headerHome.href = "/home#" + link_params
 
   headerPlaylists.href = "/playlists#" + link_params
-  headerPlaylists.style.visibility = "visible"
+  headerPlaylists.style.display = "block"
 
   headerFavourites.href = "/favourites#" + link_params
-  headerFavourites.style.visibility = "visible"
+  headerFavourites.style.display = "block"
 }
 
 
@@ -64,4 +62,3 @@ userData = getUserData(access_token)
 if (userData){
   insertUserData(userData)
 }
-stopLoading()

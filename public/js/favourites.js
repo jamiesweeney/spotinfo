@@ -6,6 +6,36 @@
 **/
 
 
+// Config options
+// Options for network graph
+var options = {
+  autoResize: true,
+  height: '100%',
+  width: '100%',
+  locale: 'en',
+  clickToUse: false,
+  configure: {
+    enabled: false
+  },    // defined in the configure module.
+  edges: {},        // defined in the edges module.
+  nodes: {},        // defined in the nodes module.
+  groups: {},       // defined in the groups module.
+  layout: {},       // defined in the layout module.
+  interaction: {},  // defined in the interaction module.
+  manipulation: {}, // defined in the manipulation module.
+  physics: {
+    enabled:true,
+    barnesHut: {
+      damping: 1,
+      centralGravity: 5,
+      gravitationalConstant: -10000,
+      avoidOverlap: 1,
+  },
+  maxVelocity: 20,
+  minVelocity: 10,
+}      // defined in the physics module.
+} 
+
 // HTML template objects
 var favSongSource =
 `
@@ -53,33 +83,6 @@ function getFavourites(url, time, type){
       nodes: graph_nodes,
       edges: graph_edges
     };
-    var options = {
-          autoResize: true,
-          height: '100%',
-          width: '100%',
-          locale: 'en',
-          clickToUse: false,
-          configure: {
-            enabled: false
-          },    // defined in the configure module.
-          edges: {},        // defined in the edges module.
-          nodes: {},        // defined in the nodes module.
-          groups: {},       // defined in the groups module.
-          layout: {},       // defined in the layout module.
-          interaction: {},  // defined in the interaction module.
-          manipulation: {}, // defined in the manipulation module.
-          physics: {
-            enabled:true,
-            barnesHut: {
-              damping: 1,
-              centralGravity: 5,
-              gravitationalConstant: -10000,
-              avoidOverlap: 1,
-          },
-          maxVelocity: 20,
-          minVelocity: 10,
-        }      // defined in the physics module.
-    } 
     var network = new vis.Network(graph_container, data, options);     
   }
 

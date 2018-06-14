@@ -32,7 +32,7 @@ function insertUserData(response){
 
   // Adjust header link buttons
   headerLogx.innerHTML = "Logout"
-  headerLogx.href = "/logout"
+  headerLogx.href = "/"
 
   headerHome.href = "/home#" + link_params
 

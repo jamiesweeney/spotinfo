@@ -5,6 +5,8 @@
 
 {% block page_content %}
   <div class="container">
+
+    <!-- Login button which redirects to spotify auth -->
     <div id="login">
       <h1>Click below to authorise spotinfo</h1>
       <button id="login-button" class="btn btn-primary">Log in with Spotify</button>
@@ -13,11 +15,5 @@
 {% endblock %}
 
 {% block body_scripts %}
-  <script>
-    if (checkAuthentication()) {
-      window.location = REDIRECT_URI;
-    }else{
-      document.getElementById("login-button").addEventListener('click', function() {authenticateWithSpotify();});
-    }
-  </script>
+  <script src="js/login.js"></script>
 {% endblock %}

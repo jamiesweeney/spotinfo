@@ -9,23 +9,50 @@
 // HTML template objects
 var userProfileSource =
 `
+<h2>{{display_name}}</h2>
 <div class="media">
-  <div class="pull-left">
-    <img class="media-object" width="150" src="{{images.0.url}}" />
-  </div>
   <div class="media-body">
-    <dl class="dl-horizontal">
-      <dt>Display name</dt><dd class="clearfix">{{display_name}}</dd>
-      <dt>ID</dt><dd>{{id}}</dd>
-      <dt>BOD</dt><dd>{{birthdate}}</dd>
-      <dt>Email</dt><dd>{{email}}</dd>
-      <dt>Followers</dt><dd>{{followers.total}}</dd>
-      <dt>Product</dt><dd>{{product}}</dd>
-      <dt>Spotify URI</dt><dd><a href="{{external_urls.spotify}}">{{external_urls.spotify}}</a></dd>
-      <dt>Link</dt><dd><a href="{{href}}">{{href}}</a></dd>
-      <dt>Profile Image</dt><dd class="clearfix"><a href="{{images.0.url}}">{{images.0.url}}</a></dd>
-      <dt>Country</dt><dd>{{country}}</dd>
-    </dl>
+    <div>
+      <img class="media-object" width="150" src="{{images.0.url}}" />
+    </div>
+    <table class="user-profile-table">
+      <tr>
+        <td>Display name</td>
+        <td>{{display_name}}</td>
+      </tr>
+      <tr>
+        <td>ID</td>
+        <td>{{id}}</td>
+      </tr>
+      <tr>
+        <td>BOD</td>
+        <td>{{birthdate}}</td>
+      </tr>
+      <tr>
+        <td>Email</td>
+        <td>{{email}}</td>
+      </tr>
+      <tr>
+        <td>Followers</td>
+        <td>{{followers.total}}</td>
+      </tr>
+      <tr>
+        <td>Product</td>
+        <td>{{product}}</td>
+      </tr>
+      <tr>
+        <td>Spotify URI</td>
+        <td><a href="{{external_urls.spotify}}">{{external_urls.spotify}}</a></td>
+      </tr>
+      <tr>
+        <td>Link</td>
+        <td><a href="{{href}}">{{href}}</a></td>
+      </tr>
+      <tr>
+        <td>Country</td>
+        <td>{{country}}</td>
+      </tr>
+    <table>
   </div>
 </div>
 `;

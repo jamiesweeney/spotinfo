@@ -34,7 +34,7 @@ var options = {
   maxVelocity: 20,
   minVelocity: 10,
 }      // defined in the physics module.
-} 
+}
 
 // HTML template objects
 var favSongSource =
@@ -68,7 +68,7 @@ var favArtistTemplate = Handlebars.compile(favArtistSource);
  * Gets list of favourites for a specified time and type.
  * @param  {string} url The request url
  * @param  {string} time The time period, from ["short", "medium", "long"]
- * @param  {string} type Either "songs" or "artists" 
+ * @param  {string} type Either "songs" or "artists"
 */
 function getFavourites(url, time, type){
 
@@ -83,7 +83,7 @@ function getFavourites(url, time, type){
       nodes: graph_nodes,
       edges: graph_edges
     };
-    var network = new vis.Network(graph_container, data, options);     
+    var network = new vis.Network(graph_container, data, options);
   }
 
   $.ajax({
@@ -123,7 +123,7 @@ function getFavourites(url, time, type){
  * Inserts a track to the list
  * @param  {json} data The api response data
  * @param  {string} time The time period, from ["short", "medium", "long"]
- * @param  {int} rank The items place in the table. 
+ * @param  {int} rank The items place in the table.
 */
 function insertTracks(data, time, rank){
   $.ajax({
@@ -132,7 +132,7 @@ function insertTracks(data, time, rank){
         'Authorization': 'Bearer ' + access_token
       },
       success: function(response) {
-        
+
         // Create table row node
         response.rank = rank
         var node = document.createElement("tr");
@@ -160,7 +160,7 @@ function insertTracks(data, time, rank){
  * @param  {vis.DataSet} graph_nodes The dataset object for graph nodes.
  * @param  {vis.DataSet} graph_edges The dataset object for graph edges.
  * @param  {div} graph_container The graph container.
- * 
+ *
 */
 function insertArtists(data, time, rank, graph_nodes, graph_edges, graph_container){
   $.ajax({
@@ -209,12 +209,12 @@ function insertArtists(data, time, rank, graph_nodes, graph_edges, graph_contain
           // Add edges to all genres that have already been added
           for (genre2 in response.genres){
             g2 = response.genres[genre2]
-            
+
             // Break when we reach current genre (in outer loop)
             if (g == g2){
               break
             }
-        
+
             if (!(graph_edges.get(g+'$'+g2) || graph_edges.get(g2+'$'+g))){
               // Add undirected edge
               graph_edges.add({
@@ -237,7 +237,7 @@ function insertArtists(data, time, rank, graph_nodes, graph_edges, graph_contain
 }
 
 /**
- * Starts each individual favourites process 
+ * Starts each individual favourites process
 */
 function startup(){
   getFavourites('https://api.spotify.com/v1/me/top/tracks?limit=50&offset=0&time_range=short_term', "short", "songs")
@@ -247,6 +247,10 @@ function startup(){
   getFavourites('https://api.spotify.com/v1/me/top/artists?limit=50&offset=0&time_range=medium_term', "medium", "artists")
   getFavourites('https://api.spotify.com/v1/me/top/artists?limit=50&offset=0&time_range=long_term', "long", "artists")
 }
+
+// Open default tab
+ document.getElementById("default-tab").click();
+
 
 // DOM elements
 var favSongPlaceholder = document.getElementById('fav-songs-table');

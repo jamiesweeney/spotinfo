@@ -12,16 +12,6 @@ var express = require('express'),
 var app = express() ;
 
 
-// URL to template matching object
-// var url_map = {
-//   '/':'index.html',
-//   '/login':'login.html',
-//   '/home':'home.html',
-//   '/playlists':'playlists.html',
-//   '/favourites':'favourites.html'
-// };
-
-
 // Configure template directory
 var PATH_TO_TEMPLATES = 'templates/' ;
 nunjucks.configure(PATH_TO_TEMPLATES, {
@@ -32,7 +22,7 @@ nunjucks.configure(PATH_TO_TEMPLATES, {
 
 // Configure page requests
 app.get('/', function(req, res){
-  return res.render('index.html');
+  return res.redirect('/home');
 });
 app.get('/login', function(req, res){
   return res.render('login.html');

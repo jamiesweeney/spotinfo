@@ -21,7 +21,9 @@ var options = {
   nodes: {},        // defined in the nodes module.
   groups: {},       // defined in the groups module.
   layout: {},       // defined in the layout module.
-  interaction: {},  // defined in the interaction module.
+  interaction: {
+    navigationButtons: true
+  },  // defined in the interaction module.
   manipulation: {}, // defined in the manipulation module.
   physics: {
     enabled:true,

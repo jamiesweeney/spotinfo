@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block head_scripts %}
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{% endblock %}
+
+{% block page_content %}
+  <div class="container">
+
+    <!-- Tabs for changing between user and followed plalists -->
+    <div class="tab">
+      <button id="default-tab" class="tablinks" onclick="openTab(event, 'tab-info')">Info</button>
+      <button class="tablinks" onclick="openTab(event, 'tab-user')" id="user-pl-button">Your playlists</button>
+      <button class="tablinks" onclick="openTab(event, 'tab-nuser')" id="nuser-pl-button">Followed playlists</button>
+    </div>
+
+    <!-- Information tab -->
+    <div id="tab-info" class="tabcontent">
+      <h2>Info</h2>
+      <p>This page can be used to view both your created and followed playlists, click the tabs above to select the category playlists you wish to view.</p>
+      <p>The playlists tables can be sorted by the different data values, by clicking on the arrow buttons on the table header.</p>
+      <p>Below the table you will find a bar/line graph that shows you how many of playlists of each size you have.</p>
+
+      <br>
+      <b><p>Please allow time for the results to be loaded into the table, this may take a few minutes!</p></b>
+    </div>
+
+    <!-- User created playlists  -->
+    <div id="tab-user" class="tabcontent">
+      <h2>Your playlists</h2>
+      <div id="user-playlists">
+        <table id="user-playlists-table">
+          <tr>
+            <th>Image</th>
+            <th onclick="sortTable(1, 'user-playlists-table', 'text')">Name<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(2, 'user-playlists-table', 'num')">No. of songs<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(3, 'user-playlists-table', 'num')">No. of followers<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(4, 'user-playlists-table', 'text')">Public/Private<i class="fas fa-sort"></i></th>
+          </tr>
+        </table>
+        <div id="user-hist">
+        </div>
+      </div>
+    </div>
+
+    <!-- Followed playlists -->
+    <div id="tab-nuser" class="tabcontent">
+      <h2>Followed playlists</h2>
+      <div id="nuser-playlists">
+        <table id="nuser-playlists-table">
+          <tr>
+            <th>Image</th>
+            <th onclick="sortTable(1, 'nuser-playlists-table', 'text')">Name<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(2, 'nuser-playlists-table', 'text')">Owner<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(3, 'nuser-playlists-table', 'num')">No. of songs<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(4, 'nuser-playlists-table', 'num')">No. of followers<i class="fas fa-sort"></i></th>
+          </tr>
+        </table>
+        <div id="nuser-hist">
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block body_scripts %}
+  <script src="js/playlists.js"></script>
+{% endblock %}

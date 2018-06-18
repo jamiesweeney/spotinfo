@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block head_scripts %}
+{% endblock %}
+
+{% block page_content %}
+  <div class="container">
+
+    <!-- User profile and some buttons -->
+    <h1>Spotinfo Home-page</h1>
+
+    <div class="home-text">
+      <div>
+        <h2>Welcome</h2>
+        <p>This is the home page of Spotinfo.</p>
+        <p>Below you can find some basic account details such as your username and product type. Use the navigation buttons in the header to visit the different pages.</p><br>
+        <p>There are currently 2 main features:</p>
+        <h3>Playlists:</h3>
+        <ul>
+          <li>Provides a sortable table with playlists information for both owned and followed playlists.</li>
+          <li>A barchart and overlaid line graph, showing the distribution of playlist sizes.</li>
+          <li>Individual playlist pages with in-depth analysis.</li>
+        </ul>
+        <h3>Favourites:</h3>
+        <ul>
+          <li>Provides a sortable table with your favourite songs and artists, over 3 differnt time periods.</li>
+          <li>A network graph which shows the genre breakdown of all favourite artists.</li>
+        </ul>
+
+      </div>
+    </div>
+
+
+    <div id="user-profile">
+    </div>
+
+    <div class="home-text">
+      <div>
+        <h4>Jamie Sweeney</h4>
+        <h4>321.jamiesweeney.321@gmail.com</h4>
+        <h4><a href="www.github.com/jamiesweeney/spotinfo">www.github.com/jamiesweeney/spotinfo</a></h4>
+        <h4>This app was built using node js and the spotify API.</h4>
+      </div>
+    </div>
+
+
+
+
+  </div>
+{% endblock %}
+
+{% block body_scripts %}
+  <script src="../public/js/home.js"></script>
+{% endblock %}

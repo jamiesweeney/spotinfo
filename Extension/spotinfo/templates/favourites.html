@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block head_scripts %}
+<script type="text/javascript" src="/vis/dist/vis.js"></script>
+<link href="/vis/dist/vis.css" rel="stylesheet" type="text/css"/>
+<link href="/vis/dist/vis-network.min.css" rel="stylesheet" type="text/css"/>
+
+
+
+{% endblock %}
+
+{% block page_content %}
+  <div class="container">
+
+    <!-- Tabs for changing time period -->
+    <div class="tab">
+      <button id="default-tab" class="tablinks" onclick="openTab(event, 'fav-info')">Info</button>
+      <button class="tablinks" onclick="openTab(event, 'fav-short')">Short term</button>
+      <button class="tablinks" onclick="openTab(event, 'fav-medium')">Medium term</button>
+      <button class="tablinks" onclick="openTab(event, 'fav-long')">Long term</button>
+    </div>
+
+    <!-- Information tab -->
+    <div id="fav-info" class="tabcontent">
+      <h2>Info</h2>
+      <p>This page can be used to view your favourite artists and songs over the following time periods</p>
+      <ul>
+        <li><p>Short time period - past 6 weeks</p></li>
+        <li><p>Medium time period - past 6 months</p></li>
+        <li><p>Long time period - past 3 years</p></li>
+      </ul>
+      <p>Please note that these time period are approximate and may not be exact.</p>
+      <br>
+      <p>Click the tabs above to change time period, for each period you will find:</p>
+      <ul>
+        <li><p>Top 50 songs</p></li>
+        <li><p>Top 50 artists</p></li>
+        <li><p>A genre graph, which represents the genres of your favourite artists. Larger graph nodes will have more occurances in your favourites, and connected nodes mean that the genres have artists in common. <b>(Experimental)</b></p></li>
+      </ul>
+      <p>The song/artists tables can be sorted by the different data values, by clicking on the arrow buttons on the table header.</p>
+      <br>
+      <b><p>Please allow time for the results to be loaded into the table and graph, this may take a few minutes!</p></b>
+    </div>
+
+    <!-- Short time period  -->
+    <div id="fav-short" class="tabcontent">
+      <h2>Short term favourites</h2>
+      <h3>Favourite songs</h3>
+      <div id="fav-short-songs">
+        <table id="fav-short-songs-table">
+          <tr>
+            <th>Image</th>
+            <th onclick="sortTable(1, 'fav-short-songs-table', 'num')">Rank<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(2, 'fav-short-songs-table', 'text')">Name<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(3, 'fav-short-songs-table', 'text')">Artists<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(4, 'fav-short-songs-table', 'text')">Album<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(5, 'fav-short-songs-table', 'num')">Popularity<i class="fas fa-sort"></i></th>
+          </tr>
+        </table>
+      </div>
+      <h3>Favourite artists</h3>
+      <div id="fav-short-artists">
+        <table id="fav-short-artists-table">
+          <tr>
+            <th>Image</th>
+            <th onclick="sortTable(1, 'fav-short-artists-table', 'num')">Rank<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(2, 'fav-short-artists-table', 'text')">Name<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(3, 'fav-short-artists-table', 'text')">Genres<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(4, 'fav-short-artists-table', 'num')">Popularity<i class="fas fa-sort"></i></th>
+          </tr>
+        </table>
+
+        <!-- Genre graph -->
+        <div id="graph-container-short" class="graph-container">
+          <div id="g-graph-short" class="genregraph"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Medium time period  -->
+    <div id="fav-medium" class="tabcontent">
+      <h2>Medium term favourites</h2>
+      <h3>Favourite songs</h3>
+      <div id="fav-medium-songs">
+        <table id="fav-medium-songs-table">
+          <tr>
+            <th>Image</th>
+            <th onclick="sortTable(1, 'fav-medium-songs-table', 'num')">Rank<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(2, 'fav-medium-songs-table', 'text')">Name<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(3, 'fav-medium-songs-table', 'text')">Artists<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(4, 'fav-medium-songs-table', 'text')">Album<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(5, 'fav-medium-songs-table', 'num')">Popularity<i class="fas fa-sort"></i></th>
+          </tr>
+        </table>
+      </div>
+      <h3>Favourite artists</h3>
+      <div id="fav-medium-artists">
+        <table id="fav-medium-artists-table">
+          <tr>
+            <th>Image</th>
+            <th onclick="sortTable(1, 'fav-medium-artists-table', 'num')">Rank<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(2, 'fav-medium-artists-table', 'text')">Name<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(3, 'fav-medium-artists-table', 'text')">Genres<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(4, 'fav-medium-artists-table', 'num')">Popularity<i class="fas fa-sort"></i></th>
+          </tr>
+        </table>
+      </div>
+      <!-- Genre graph -->
+      <div id="graph-container-medium" class="graph-container">
+        <div id="g-graph-medium" class="genregraph"></div>
+      </div>
+    </div>
+
+    <!-- Long time period  -->
+    <div id="fav-long" class="tabcontent">
+      <h2>Long term favourites</h2>
+      <h3>Favourite songs</h3>
+      <div id="fav-long-songs">
+        <table id="fav-long-songs-table">
+          <tr>
+            <th>Image</th>
+            <th onclick="sortTable(1, 'fav-long-songs-table', 'num')">Rank<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(2, 'fav-long-songs-table', 'text')">Name<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(3, 'fav-long-songs-table', 'text')">Artists<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(4, 'fav-long-songs-table', 'text')">Album<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(5, 'fav-long-songs-table', 'num')">Popularity<i class="fas fa-sort"></i></th>
+          </tr>
+        </table>
+      </div>
+      <h3>Favourite artists</h3>
+      <div id="fav-long-artists">
+        <table id="fav-long-artists-table">
+          <tr>
+            <th>Image</th>
+            <th onclick="sortTable(1, 'fav-long-artists-table', 'num')">Rank<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(2, 'fav-long-artists-table', 'text')">Name<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(3, 'fav-long-artists-table', 'text')">Genres<i class="fas fa-sort"></i></th>
+            <th onclick="sortTable(4, 'fav-long-artists-table', 'num')">Popularity<i class="fas fa-sort"></i></th>
+          </tr>
+        </table>
+      </div>
+      <!-- Genre graph -->
+      <div id="graph-container-long" class="graph-container">
+        <div id="g-graph-long" class="genregraph"></div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block body_scripts %}
+  <script src="js/favourites.js"></script>
+{% endblock %}

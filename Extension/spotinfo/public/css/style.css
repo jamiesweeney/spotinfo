@@ -1,0 +1,226 @@
+
+/**
+ * Demo Styles
+ */
+
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  padding-bottom: 6rem;
+  min-height: 100%;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+}
+
+/**
+ * Footer Styles
+ */
+
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
+}
+
+
+i {
+  height: 50px;
+  width: 50px;
+}
+
+
+td, th{
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 1px;
+  padding-bottom: 1px;
+
+}
+
+
+table{
+  margin: 50px;
+}
+
+
+
+/* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
+@media screen and (max-width: 750px) {
+  .header a {
+    float: none;
+    display: block;
+    text-align: center;
+  }
+  .header-left, .header-middle, .header-right  {
+    float: none;
+    margin: 0 auto;
+    width: 100%;
+  }
+}
+
+.page_content{
+  /* background-color: red; */
+  padding: 20px;
+  /* height: 100%; */
+}
+
+.container{
+  background-color: #f1f1f1;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+.container>*{
+  border-radius: 15px;
+  padding: 20px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  margin-top: 20px;
+}
+
+
+
+.container h1, .container #user_profile, .container .home-text{
+  margin: 0 auto;
+  text-align: center;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.home-text{
+  background-color:#303030;
+  border-radius: 15px;
+  padding: 20px;
+  margin: 0 auto;
+
+}
+
+.home-text>*{
+  background-color: #f1f1f1;
+  border-radius: 15px;
+  /* margin: 0 auto;  */
+  padding: 20px;
+  text-align: center;
+  /* display:  inline-block; */
+}
+
+#login-button-container{
+  text-align: center;
+  font-display: center;
+}
+#login-button{
+  width: 40%;
+
+}
+
+
+#user-profile{
+  background-color:#303030;
+  border-radius: 15px;
+  padding: 20px;
+}
+
+#user-profile img{
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+}
+
+#user-profile *{
+  margin: 0 auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+#user-profile h2{
+  margin: 0 auto;
+  color: whitesmoke;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+
+.user-profile-table{
+  background-color: #f1f1f1;
+  border-radius: 15px;
+}
+.user-profile-table td {
+  padding: 10px;
+  border-bottom: 1px solid black;
+}
+
+.user-profile-table td:nth-last-child(1) {
+  border-left: 1px solid black;
+}
+.user-profile-table tr:nth-last-child(1) td {
+  border-bottom: 0px;
+}
+
+
+
+
+
+
+
+/* Style the tab */
+.tab {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+    background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+    background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+.graph-container{
+  height: 600px;
+  width: 100%;
+  border: 1px solid #ccc;
+}
+
+.genregraph {
+  height: 600px;
+  width: 100%;
+  border: 2px solid #ccc;
+}

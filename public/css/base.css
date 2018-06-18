@@ -18,6 +18,7 @@ html body {
   padding: 10px;
   display: flex;
   align-items: center;
+  min-height: 125px;
 }
 .header img{
   border-radius: 50%;

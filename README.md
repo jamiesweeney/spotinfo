@@ -42,6 +42,6 @@ The spotinfo service should now be available from "http:localhost:8080/"
 
 
 ## Dependencies
-* express
-* nunjucks
-* vis
+* express 4.16.3
+* nunjucks 3.1.3
+* vis 4.21.0

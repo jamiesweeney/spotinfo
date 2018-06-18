@@ -10,7 +10,7 @@
 var layout = {
   title: "Playlist sizes",
   height: 450,
-  width: 900,
+  width: 1100,
   xaxis: {
     title: "Size of playlist",
     titlefont: {
@@ -150,9 +150,9 @@ function insertPlaylist(data){
 
           // Add to chart dataset
           user_pl_histo.push(response.tracks.total);
-          // Refresh chart
-          var trace = getTraces(user_pl_histo);
-          Plotly.newPlot(user_hist_div.id, trace, layout=layout);
+
+          // Update chart
+          updateChart("user-hist")
 
         // If a followed playlist
         }else{
@@ -162,9 +162,9 @@ function insertPlaylist(data){
 
           // Add to chart dataset
           nuser_pl_histo.push(response.tracks.total);
-          // Refresh chart
-          var trace = getTraces(nuser_pl_histo);
-          Plotly.newPlot(nuser_hist_div.id, trace, layout=layout);
+
+          // Update chart
+          updateChart("nuser-hist")
         }
       },
       error: function(response){
@@ -177,15 +177,48 @@ function insertPlaylist(data){
   });
 }
 
+/**
+ * Updates a chart with the new data and correct size
+ * @param  {string} id The id of the graph container
+*/
+function updateChart(id){
+  var traces;
+
+  if (id == "user-hist"){
+    traces = getTraces(user_pl_histo)
+  }else{
+    traces = getTraces(nuser_pl_histo)
+  }
+
+  // Update with new layout
+  ly = layout
+  ly.width = document.getElementById(id).parentElement.clientWidth
+  Plotly.newPlot(id, traces, layout=ly);
+}
+
+
 // Open default tab
 document.getElementById("default-tab").click();
 
-//DOM elements
+// DOM elements
 var userPlaylistPlaceholder = document.getElementById('user-playlists-table');
 var nuserPlaylistPlaceholder = document.getElementById('nuser-playlists-table');
 var user_hist_div = document.getElementById('user-hist');
 var nuser_hist_div = document.getElementById('nuser-hist');
 
+// Add onclick events to tab buttons to resize graph correctly
+document.getElementById("user-pl-button").addEventListener("click", function(){
+  updateChart("user-hist");
+});
+document.getElementById("nuser-pl-button").addEventListener("click", function(){
+  updateChart("nuser-hist");
+});
+
+// Add on resize event to resize graphs to correct size
+window.onresize = function(event) {
+  updateChart("user-hist")
+  updateChart("nuser-hist")
+};
 
 // Get url paramters (if any)
 var params = getHashParams();

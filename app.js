@@ -8,6 +8,7 @@
 // Load our required modules
 var express = require('express'),
   nunjucks = require('nunjucks');
+  vis = require('vis');
 
 var app = express() ;
 

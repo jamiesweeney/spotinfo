@@ -73,6 +73,5 @@ if (userData){
   // Insert into profile template
   userProfilePlaceholder.innerHTML = userProfileTemplate(userData);
 }else{
-  // or redirect to login
-  window.location = LOGIN_URI;
+  userProfilePlaceholder.innerHTML = "<h2>You are not currently logged in.</h2>"
 }

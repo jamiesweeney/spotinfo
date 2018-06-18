@@ -10,9 +10,14 @@
 
     <!-- Tabs for changing time period -->
     <div class="tab">
+      <button id="default-tab" class="tablinks" onclick="openTab(event, 'fav-info')">Info</button>
       <button class="tablinks" onclick="openTab(event, 'fav-short')">Short term (~6w)</button>
       <button class="tablinks" onclick="openTab(event, 'fav-medium')">Medium term (~6m)</button>
       <button class="tablinks" onclick="openTab(event, 'fav-long')">Long term (~3y)</button>
+    </div>
+
+    <!-- Information tab -->
+    <div id="fav-info" class="tabcontent">
     </div>
 
     <!-- Short time period  -->

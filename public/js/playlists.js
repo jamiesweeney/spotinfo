@@ -38,7 +38,7 @@ var histo_trace_template = {
     start: 0
   }
 };
-// Trace template for line graph 
+// Trace template for line graph
 var line_trace_template = {
   x: null,
   y: null,
@@ -76,7 +76,7 @@ var nuserPlaylistTemplate = Handlebars.compile(nuserPlaylistSource);
 /**
  * Converts the sizes array to a usable trace
  * @param  {json} data The request url
- * @return {array} Array containing [histo_trace, line_trace] 
+ * @return {array} Array containing [histo_trace, line_trace]
 */
 function getTraces(data){
 
@@ -97,7 +97,7 @@ function getTraces(data){
 
 /**
  * Gets lists of all owned and followed playlists.
- * @param  {string} url The request url 
+ * @param  {string} url The request url
 */
 function getPlaylists(url){
   $.ajax({
@@ -129,7 +129,7 @@ function getPlaylists(url){
 
 /**
  * Gets all the playlist data for a single playlist and adds it to the relevant table
- * @param  {json} data The response data, for that list element 
+ * @param  {json} data The response data, for that list element
 */
 function insertPlaylist(data){
   $.ajax({
@@ -138,16 +138,16 @@ function insertPlaylist(data){
         'Authorization': 'Bearer ' + access_token
       },
       success: function(response) {
-        // Create table row node 
+        // Create table row node
         var node = document.createElement("tr");
 
         // If an owned playlist
         if (response.owner.id == user_id){
           // Add to table
-          response.public = response.public?"public":"private"; 
+          response.public = response.public?"public":"private";
           node.innerHTML =  userPlaylistTemplate(response)
           userPlaylistPlaceholder.appendChild(node);
-          
+
           // Add to chart dataset
           user_pl_histo.push(response.tracks.total);
           // Refresh chart
@@ -159,7 +159,7 @@ function insertPlaylist(data){
           // Add to table
           node.innerHTML =  nuserPlaylistTemplate(response)
           nuserPlaylistPlaceholder.appendChild(node);
-          
+
           // Add to chart dataset
           nuser_pl_histo.push(response.tracks.total);
           // Refresh chart
@@ -177,6 +177,8 @@ function insertPlaylist(data){
   });
 }
 
+// Open default tab
+document.getElementById("default-tab").click();
 
 //DOM elements
 var userPlaylistPlaceholder = document.getElementById('user-playlists-table');
@@ -201,5 +203,3 @@ if (userData){
   // or redirect to login
   window.location = LOGIN_URI;
 }
-
-

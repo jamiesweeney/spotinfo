@@ -26,12 +26,22 @@ Run with
 
 `node app.js`
 
-The spotifo service should now be available from "http:localhost:8080/"
+The spotinfo service should now be available from "http:localhost:8080/"
+
+* "/login" - to perform authentication with Spotify
+* "/home" - home page
+* "/favourites" - see favourite songs and artists
+* "/playlists" - see playlist data
+* "/logout" - to log back out (removes url params)
+
 
 ## Known Issues
+* Sometimes user will need to reauthenticate when moving between pages
+* Favourites page requires a lot of processing when building / simulating network graph and slows down
+* Favourites network graph is unpredictable / unstable
 
 
 ## Dependencies
-
-
-## Future plans
+* express
+* nunjucks
+* vis

@@ -249,7 +249,7 @@ function startup(){
 }
 
 // Open default tab
- document.getElementById("default-tab").click();
+document.getElementById("default-tab").click();
 
 
 // DOM elements

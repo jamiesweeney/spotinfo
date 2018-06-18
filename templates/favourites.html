@@ -11,13 +11,31 @@
     <!-- Tabs for changing time period -->
     <div class="tab">
       <button id="default-tab" class="tablinks" onclick="openTab(event, 'fav-info')">Info</button>
-      <button class="tablinks" onclick="openTab(event, 'fav-short')">Short term (~6w)</button>
-      <button class="tablinks" onclick="openTab(event, 'fav-medium')">Medium term (~6m)</button>
-      <button class="tablinks" onclick="openTab(event, 'fav-long')">Long term (~3y)</button>
+      <button class="tablinks" onclick="openTab(event, 'fav-short')">Short term</button>
+      <button class="tablinks" onclick="openTab(event, 'fav-medium')">Medium term</button>
+      <button class="tablinks" onclick="openTab(event, 'fav-long')">Long term</button>
     </div>
 
     <!-- Information tab -->
     <div id="fav-info" class="tabcontent">
+      <h2>Info</h2>
+      <p>This page can be used to view your favourite artists and songs over the following time periods</p>
+      <ul>
+        <li><p>Short time period - past 6 weeks</p></li>
+        <li><p>Medium time period - past 6 months</p></li>
+        <li><p>Long time period - past 3 years</p></li>
+      </ul>
+      <p>Please note that these time period are approximate and may not be exact.</p>
+      <br>
+      <p>Click the tabs above to change time period, for each period you will find:</p>
+      <ul>
+        <li><p>Top 50 songs</p></li>
+        <li><p>Top 50 artists</p></li>
+        <li><p>A genre graph, which represents the genres of your favourite artists. Larger graph nodes will have more occurances in your favourites, and connected nodes mean that the genres have artists in common. <b>(Experimental)</b></p></li>
+      </ul>
+      <p>The song/artists tables can be sorted by the different data values, by clicking on the arrow buttons on the table header.</p>
+      <br>
+      <b><p>Please allow time for the results to be loaded into the table and graph, this may take a few minutes!</p></b>
     </div>
 
     <!-- Short time period  -->

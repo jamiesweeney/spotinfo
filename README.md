@@ -4,6 +4,9 @@ A simple node.js application for analysis of Spotify user accounts library and l
 
 ## Installation
 
+### Install git
+https://git-scm.com/
+
 ### Clone the repository.
 
 `git clone https://github.com/jamiesweeney/spotinfo.git`
